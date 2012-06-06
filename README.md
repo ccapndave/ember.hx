@@ -2,7 +2,7 @@
 
 >Ember.hx is current under development and these examples will, probably, not yet work!
 
-Ember.hx is a Haxe wrapper allowing you to use the Haxe language to leverage ember.js - a powerful JavaScript framework that does all of the heavy lifting that you'd normally have to do by hand. There are tasks that are common to every web app; Ember.js does those things for you, so you can focus on building killer features and UI.
+Ember.hx is a Haxe wrapper allowing you to use the Haxe language to leverage Ember.js - a powerful JavaScript framework that does all of the heavy lifting that you'd normally have to do by hand. There are tasks that are common to every web app; Ember.js does those things for you, so you can focus on building killer features and UI.
 
 These are the features that make Ember.js a joy to use:
 
