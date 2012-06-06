@@ -30,7 +30,7 @@ class MyApp extends Ember.Object {
     president = new Person();
     president.name = "Barack Obama";
     
-    country = new Country();
+    usa = new Country();
   }
 }
 
@@ -44,7 +44,7 @@ class Country extends Ember.Object {
 }
 
 // Later, after Ember has resolved bindings...
-MyApp.country.presidentName;
+MyApp.usa.presidentName;
 // "Barack Obama"
 ```
 
