@@ -1,4 +1,5 @@
-package ;
+package macros;
+import ember.Object;
 import haxe.macro.Compiler;
 import haxe.macro.Context;
 import haxe.macro.ExampleJSGenerator;
@@ -15,7 +16,7 @@ class EmberJSGenerator extends ExampleJSGenerator {
 
 	/**
 	 * TODO: Instead of checking for ember on this specific class, check the whole anscestor tree for it, and if we find
-	 * one then this counts as an ember class.
+	 * Ember.Object then this counts as an ember class.
 	 * 
 	 * @param	c
 	 */
@@ -69,7 +70,8 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		api.setCurrentClass(c);
 		var p = getPath(c);
 		fprint("$p = $$hxClasses['$p'] = ");
-		if ( c.constructor != null ) {
+		// Commented out the constructor temporarily - it was stopping the root app from initializing
+		//if ( c.constructor != null ) {
 			var superClassType = c.superClass.t.get();
 			
 			var jsSuperClass = superClassType.module;
@@ -83,9 +85,9 @@ class EmberJSGenerator extends ExampleJSGenerator {
 			}
 			
 			print(jsSuperClass + (c.meta.has(":create") ? ".create()" : ".extend()"));
-		} else {
-			print("function() { }");
-		}
+		//} else {
+		//	print("function() { }");
+		//}
 		
 		newline();
 		
