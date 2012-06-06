@@ -24,7 +24,7 @@ Here's how you create a binding between two objects:
 ```haxe
 class MyApp extends Ember.Object {
   public static var president:Person;
-  public static var country:Object;
+  public static var country:Country;
   
   public static function main() {
     president = new Person();
