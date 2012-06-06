@@ -22,7 +22,7 @@ Use bindings to keep properties between two different objects in sync. You just 
 
 Here's how you create a binding between two objects:
 ```haxe
-class MyApp extends Ember.Object {
+class MyApp extends Ember.Application {
   public static var president:Person;
   public static var country:Country;
   
