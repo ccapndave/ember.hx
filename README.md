@@ -14,7 +14,6 @@ These are the features that Ember.hx adds to Ember.js, making it even more of a 
 
 1. Strict typing
 2. Code completion
-3. Compile time error checking
 
 ## Bindings
 
@@ -117,9 +116,7 @@ These features make Haxe ideal as an alternative to Javascript.
 
 # Code completion
 
-Since Haxe is strictly typed it means that IDEs can offer complete and accurate code completion.  Major IDEs supporting Haxe include Textmate, IntelliJ IDEA, FDT, FlashDevelop, Notepad++.  For a list of IDEs with Haxe support, or plugins see [http://haxe.org/com/ide].
-
-# Compile time error checking
+Since Haxe is strictly typed it means that IDEs can offer complete and accurate code completion.  Most popular IDEs support Haxe, including Textmate, Sublime Text 2 and IntelliJ.  For a list of IDEs with Haxe support, or plugins see [http://haxe.org/com/ide].
 
 # Why bother?
 
