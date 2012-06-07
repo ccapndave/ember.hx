@@ -1,6 +1,6 @@
 # Ember.hx
 
->Ember.hx is current under development and these examples will, probably, not yet work!
+>Ember.hx is current under active development.  The examples given below will not yet work!
 
 Ember.hx is a Haxe wrapper allowing you to use the Haxe language to leverage Ember.js - a powerful JavaScript framework that does all of the heavy lifting that you'd normally have to do by hand. There are tasks that are common to every web app; Ember.js does those things for you, so you can focus on building killer features and UI.
 
@@ -27,8 +27,8 @@ class MyApp extends Ember.Application {
   public static var country:Country;
   
   public static function main() {
-    president = new Person();
-    president.name = "Barack Obama";
+    usPresident = new Person();
+    usPresident.name = "Barack Obama";
     
     usa = new Country();
   }
@@ -39,7 +39,7 @@ class Person extends Ember.Object {
 }
 
 class Country extends Ember.Object {
-  @:bind("MyApp.president.name")
+  @:binding("MyApp.usPresident.name")
   public var presidentName:String;
 }
 
@@ -54,41 +54,42 @@ Bindings allow you to architect your application using the MVC (Model-View-Contr
 
 Computed properties allow you to treat a function like a property:
 
-``` javascript
-MyApp.president = Ember.Object.create({
-  firstName: "Barack",
-  lastName: "Obama",
+```haxe
+class Person extends Ember.Object {
+  public var firstName:String;
+  public var lastName:String;
+  public var fullName(getFullName, null):String;
+  
+  private function getFullName() {
+    return firstName + ' ' + lastName;
+  }
+}
 
-  fullName: function() {
-    return this.get('firstName') + ' ' + this.get('lastName');
-
-    // Call this flag to mark the function as a property
-  }.property()
-});
-
-MyApp.president.get('fullName');
+MyApp.president.fullName;
 // "Barack Obama"
 ```
 
 Treating a function like a property is useful because they can work with bindings, just like any other property.
 
-Many computed properties have dependencies on other properties. For example, in the above example, the `fullName` property depends on `firstName` and `lastName` to determine its value. You can tell Ember.js about these dependencies like this:
+Many computed properties have dependencies on other properties. For example, in the above example, the `fullName` property depends on `firstName` and `lastName` to determine its value. You can tell Ember.hx about these dependencies like this:
 
-``` javascript
-MyApp.president = Ember.Object.create({
-  firstName: "Barack",
-  lastName: "Obama",
+```haxe
+class Person extends Ember.Object {
+  public var firstName:String;
+  public var lastName:String;
+  public var fullName(getFullName, null):String;
+  
+  @:property('firstName', 'lastName')
+  private function getFullName() {
+    return firstName + ' ' + lastName;
+  }
+}
 
-  fullName: function() {
-    return this.get('firstName') + ' ' + this.get('lastName');
-
-    // Tell Ember.js that this computed property depends on firstName
-    // and lastName
-  }.property('firstName', 'lastName')
-});
+MyApp.president.fullName;
+// "Barack Obama"
 ```
 
-Make sure you list these dependencies so Ember.js knows when to update bindings that connect to a computed property.
+Make sure you list these dependencies so Ember.hx knows when to update bindings that connect to a computed property.
 
 ## Auto-updating Templates
 
