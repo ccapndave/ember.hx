@@ -12,7 +12,7 @@ These are the features that make Ember.js a joy to use:
 
 These are the features that Ember.hx adds to Ember.js, making it even more of a joy to use:
 
-1. Strong typing
+1. Strict typing
 2. Code completion
 3. Compile time error checking
 
@@ -105,12 +105,26 @@ Here's the best part: templates are bindings-aware. That means that if you ever 
 
 Hopefully you can see how all three of these powerful tools work together: start with some primitive properties, then start building up more sophisticated properties and their dependencies using computed properties. Once you've described the data, you only have to say how it gets displayed once, and Ember.hx takes care of the rest. It doesn't matter how the underlying data changes, whether from an XHR request or the user performing an action; your user interface always stays up-to-date. This eliminates entire categories of edge cases that developers struggle with every day.
 
-# Strong typing
+# Strict typing
+
+Unlike JavaScript which can take hours to debug, Haxe has a very strict compile-time type checking feature that allows you to catch errors before testing your program in the browser, and automatically offers helpful instruction on how to debug the issue.
+
+Haxe also supports anonymous functions, closures, dynamic types (which are similar to what Javascript uses by default).  It also has a sophisticated type inference system which means that it is often possible to leave types out altogether, and still get the benefits of code completion and type checking.
+
+Finally Haxe allows the type system to be completely disabled for blocks of code using `untyped { }`.
+
+These features make Haxe ideal as an alternative to Javascript.
 
 # Code completion
+
+
 
 # Compile time error checking
 
 # Why bother?
+
+# Differences between Ember.hx and Ember.js
+
+# How does it work?
 
 # Getting Started
