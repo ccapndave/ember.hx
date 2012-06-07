@@ -109,7 +109,7 @@ Hopefully you can see how all three of these powerful tools work together: start
 
 Unlike JavaScript which can take hours to debug, Haxe has a very strict compile-time type checking feature that allows you to catch errors before testing your program in the browser, and automatically offers helpful instruction on how to debug the issue.
 
-Haxe also supports anonymous functions, closures, dynamic types (which are similar to what Javascript uses by default).  It also has a sophisticated type inference system which means that it is often possible to leave types out altogether, and still get the benefits of code completion and type checking.
+Haxe also supports packages, modules, enums, getters and setters, anonymous functions, closures, dynamic types and many other modern language features.  It also has a sophisticated type inference system which means that it is often possible to leave types out altogether, and still get the benefits of code completion and type checking.
 
 Finally Haxe allows the type system to be completely disabled for blocks of code using `untyped { }`.
 
@@ -117,7 +117,7 @@ These features make Haxe ideal as an alternative to Javascript.
 
 # Code completion
 
-
+Since Haxe is strictly typed it means that IDEs can offer complete and accurate code completion.  Major IDEs supporting Haxe include Textmate, IntelliJ IDEA, FDT, FlashDevelop, Notepad++.  For a list of IDEs with Haxe support, or plugins see [http://haxe.org/com/ide].
 
 # Compile time error checking
 
