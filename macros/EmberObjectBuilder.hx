@@ -27,27 +27,34 @@ class EmberObjectBuilder {
 				
 				// Only continue if readType was set, otherwise this is a function not a variable
 				if (readType != null) {
-					field.kind = FProp("_get_" + field.name, "_set_" + field.name, readType);
+					// 1. Create getter and setters for each field that delegates to Ember.Object's get() and set() methods
+					field.kind = FProp("__$get_" + field.name, "__$set_" + field.name, readType);
 					
 					var getterExprString = Std.format("function():Dynamic { return get('${field.name}'); }");
 					newFields.push({
-						name: "_get_" + field.name,
-						doc: field.name,
-						meta: [ { name: ":externGetter", params: [ ], pos: Context.currentPos() } ],
-						access: [APrivate],
+						name: "__$get_" + field.name,
+						doc: null,
+						meta: [],
+						access: [APrivate, AInline],
 						kind: FFun(getFunction(Context.parse(getterExprString, Context.currentPos()))),
 						pos: Context.currentPos()
 					});
 					
 					var setterExprString = Std.format("function(value:Dynamic):Dynamic { return set('${field.name}', value); }");
 					newFields.push({
-						name: "_set_" + field.name,
-						doc: field.name,
-						meta: [ { name: ":externSetter", params: [ ], pos: Context.currentPos() } ],
-						access: [APrivate],
+						name: "__$set_" + field.name,
+						doc: null,
+						meta: [],
+						access: [APrivate, AInline],
 						kind: FFun(getFunction(Context.parse(setterExprString, Context.currentPos()))),
 						pos: Context.currentPos()
 					});
+					
+					// 2. Grab @:bind(path) metadata and convert it to Ember.bind calls
+					if (field.meta.getValues(":bind").length > 0) {
+						// Get the first parameter of bind as a string, which is the path
+						var path = field.meta.getValues(":bind")[0][0].toString();
+					}
 				}
 			}
 		}

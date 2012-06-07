@@ -36,18 +36,6 @@ class EmberJSGenerator extends ExampleJSGenerator {
 					inits.add(c.init);
 				if (!c.isExtern) {
 					genClass(c);
-				} else if (c.isExtern && c.meta.has(":ember")) {
-					for (m in c.fields.get()) {
-						if (m.meta.has(":externSetter")) {
-							fprint("${getPath(c)}.prototype${field(m.name)} = function(value) { this.set('${m.doc}', value); }");
-							newline();
-						}
-						
-						if (m.meta.has(":externGetter")) {
-							fprint("${getPath(c)}.prototype${field(m.name)} = function() { return this.get('${m.doc}'); }");
-							newline();
-						}
-					}
 				}
 			case TEnum(r, _):
 				var e = r.get();
@@ -96,7 +84,10 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		for ( f in c.fields.get() ) {
 			switch( f.kind ) {
 			case FVar(r, _):
-				if( r == AccResolve ) continue;
+				if (r == AccResolve) continue;
+			// Don't generate Javascript for inlined methods as there is no point
+			case FMethod(f):
+				if (f == MethInline) continue;
 			default:
 			}
 			genClassField(c, p, f);
