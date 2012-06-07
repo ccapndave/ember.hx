@@ -93,7 +93,7 @@ Make sure you list these dependencies so Ember.hx knows when to update bindings 
 
 ## Auto-updating Templates
 
-Ember.js uses Handlebars, a semantic templating library. To take data from your JavaScript application and put it into the DOM, create a `<script>` tag and put it into your HTML, wherever you'd like the value to appear:
+Ember.hx uses Handlebars, a semantic templating library. To take data from your Haxe application and put it into the DOM, create a `<script>` tag and put it into your HTML, wherever you'd like the value to appear:
 
 ``` html
 <script type="text/x-handlebars">
@@ -103,7 +103,7 @@ Ember.js uses Handlebars, a semantic templating library. To take data from your 
 
 Here's the best part: templates are bindings-aware. That means that if you ever change the value of the property that you told us to display, we'll update it for you automatically. And because you've specified dependencies, changes to *those* properties are reflected as well.
 
-Hopefully you can see how all three of these powerful tools work together: start with some primitive properties, then start building up more sophisticated properties and their dependencies using computed properties. Once you've described the data, you only have to say how it gets displayed once, and Ember.js takes care of the rest. It doesn't matter how the underlying data changes, whether from an XHR request or the user performing an action; your user interface always stays up-to-date. This eliminates entire categories of edge cases that developers struggle with every day.
+Hopefully you can see how all three of these powerful tools work together: start with some primitive properties, then start building up more sophisticated properties and their dependencies using computed properties. Once you've described the data, you only have to say how it gets displayed once, and Ember.hx takes care of the rest. It doesn't matter how the underlying data changes, whether from an XHR request or the user performing an action; your user interface always stays up-to-date. This eliminates entire categories of edge cases that developers struggle with every day.
 
 # Getting Started
 
