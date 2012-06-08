@@ -6,6 +6,7 @@ import haxe.macro.ExampleJSGenerator;
 import haxe.macro.JSGenApi;
 import haxe.macro.Type;
 import haxe.macro.Expr;
+import tink.macro.tools.AST;
 using Lambda;
 using StringTools;
 using tink.macro.tools.MacroTools;
@@ -16,14 +17,13 @@ using tink.macro.tools.MacroTools;
  * go as the first parameter of extend or create.  Would need to think about how that would work with static properties.
  */
 class EmberJSGenerator extends ExampleJSGenerator {
-
+	
 	public function new(api) {
 		super(api);
 	}
 
 	/**
-	 * TODO: Instead of checking for ember on this specific class, check the whole anscestor tree for it, and if we find
-	 * Ember.Object or Ember.Application then this counts as an ember class.
+	 * If this class subclasses Ember.Object or Ember.Application then run our special JS generator code, otherwise default to the standard one.
 	 * 
 	 * @param	c
 	 */
@@ -53,6 +53,38 @@ class EmberJSGenerator extends ExampleJSGenerator {
 	
 	#if macro
 	public static function use() {
+		// This runs just before compilation
+		Context.onGenerate(function(types) {
+			var namespaces = new Hash<String>();
+			
+			// Go through the types finding anything that is an Ember application and storing it in a map
+			for (type in types) {
+				switch (type) {
+					case TInst(t, _):
+						var c = t.get();
+						if (hasSuperClass(c, [ "ember.Application" ]))
+							namespaces.set(c.name.toLowerCase(), c.name);
+					default:
+				}
+			}
+			
+			// Now we have the application go through the types again finding anything that is an Ember object and add native metadata to it
+			for (type in types) {
+				switch (type) {
+					case TInst(t, _):
+						var c = t.get();
+						if (c.pack.length > 0 && hasSuperClass(c, [ "ember.Object" ])) {
+							if (namespaces.exists(c.pack[0])) {
+								var native = c.pack.copy();
+								native[0] = namespaces.get(native[0]);
+								c.meta.add(":native", [ Context.makeExpr(native.concat([c.name]).join("."), c.pos) ], c.pos);
+							}
+						}
+					default:
+				}
+			}
+		});
+		
 		Compiler.setCustomJSGenerator(function(api) new EmberJSGenerator(api).generate());
 	}
 	#end
@@ -68,7 +100,12 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		
 		// Commented out the constructor temporarily; it stops the root app from initializing
 		//if ( c.constructor != null ) {
-			print(getNativeModule(c.superClass.t.get()) + (c.meta.has(":create") ? ".create()" : ".extend()"));
+		print(getNativeModule(c.superClass.t.get()));
+		if (hasSuperClass(c, [ "Ember.Application" ])) {
+			print(".create()");
+		} else {
+			print(".extend()");
+		}
 		//} else {
 		//	print("function() { }");
 		//}
@@ -129,7 +166,7 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		}
 	}
 	
-	private function hasSuperClass(c:ClassType, searchForClasses:Array<String>) {
+	private static function hasSuperClass(c:ClassType, searchForClasses:Array<String>) {
 		var currentClassType = c;
 		do {
 			if (currentClassType.superClass != null) {

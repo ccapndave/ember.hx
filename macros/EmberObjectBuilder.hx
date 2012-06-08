@@ -2,8 +2,8 @@ package macros;
 
 import haxe.macro.Expr;
 import haxe.macro.Context;
+import haxe.macro.Type;
 import tink.core.types.Outcome;
-import tink.macro.tools.AST;
 using tink.macro.tools.MacroTools;
 using macros.tools.ArrayTools;
 
