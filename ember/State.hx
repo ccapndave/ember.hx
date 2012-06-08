@@ -1,6 +1,6 @@
 package ember;
 
-@:ember @:native("Ember.State")
+@:native("Ember.State")
 extern class State extends Object {
 
 	public function new():Void;

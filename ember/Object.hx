@@ -2,7 +2,7 @@ package ember;
 import macros.EmberObjectBuilder;
 
 @:autoBuild(macros.EmberObjectBuilder.build())
-@:ember @:native("Ember.Object")
+@:native("Ember.Object")
 extern class Object {
 	
 	public function new():Void;

@@ -1,6 +1,6 @@
 package ember;
 
-@:ember @:native("Ember.ViewState")
+@:native("Ember.ViewState")
 extern class ViewState extends State {
 
 	public function new():Void;

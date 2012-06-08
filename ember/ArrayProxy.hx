@@ -1,6 +1,6 @@
 package ember;
 
-@:ember @:native("Ember.ArrayProxy")
+@:native("Ember.ArrayProxy")
 extern class ArrayProxy<T> extends Object {
 	
 	public function new():Void;

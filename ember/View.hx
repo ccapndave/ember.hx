@@ -1,6 +1,6 @@
 package ember;
 
-@:ember @:native("Ember.View")
+@:native("Ember.View")
 extern class View extends Object {
 	
 	public function new():Void;

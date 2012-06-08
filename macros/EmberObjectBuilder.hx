@@ -49,15 +49,6 @@ class EmberObjectBuilder {
 						kind: FFun(getFunction(Context.parse(setterExprString, Context.currentPos()))),
 						pos: Context.currentPos()
 					});
-					
-					// 2. Grab @:binding(path) metadata and convert it to Ember.bind calls
-					if (field.meta.getValues(":binding").length > 0) {
-						// Get the first parameter of bind as a string, which is the path
-						var path = field.meta.getValues(":binding")[0][0].toString();
-						var bindingExprString = Std.format("Ember.bind(this, ${field.name}, $path)");
-						
-						// tricky... it needs to add this to the init function I think
-					}
 				}
 			}
 		}
