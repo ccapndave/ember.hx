@@ -1,5 +1,4 @@
 package macros;
-import ember.Object;
 import haxe.macro.Compiler;
 import haxe.macro.Context;
 import haxe.macro.ExampleJSGenerator;
