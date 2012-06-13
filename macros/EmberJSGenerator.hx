@@ -11,9 +11,8 @@ using StringTools;
 using tink.macro.tools.MacroTools;
 
 /**
- * Generate Ember friendly JS.  In fact, this uses the standard JS generator but steps in when a class extends ember.Object or ember.Application to make
- * Ember friendly code.  At the moment this uses *.prototype to add methods, but in the future this could do the more standard Ember style where attributes
- * go as the first parameter of extend or create.  Would need to think about how that would work with static properties.
+ * Generate Ember JS.  In fact, this uses the standard JS generator but steps in when a class extends ember.Object or ember.Application to make
+ * Ember friendly code.
  */
 class EmberJSGenerator extends ExampleJSGenerator {
 	
@@ -103,16 +102,14 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		if (hasSuperClass(c, [ "Ember.Application" ])) {
 			print(".create()");
 		} else {
-			print(".extend()");
+			print(".extend({");
 		}
 		//} else {
 		//	print("function() { }");
 		//}
 		
-		newline();
+		newlineNoSemicolon();
 		
-		for( f in c.statics.get() )
-			genStaticField(c, p, f);
 		for ( f in c.fields.get() ) {
 			switch( f.kind ) {
 			case FVar(r, _):
@@ -122,19 +119,47 @@ class EmberJSGenerator extends ExampleJSGenerator {
 					
 					// TODO: check that the target of the binding exists, and throw a compilation error if not
 					
-					// TODO: don't keep reopening the class
-					fprint("${getNativeModule(c)}.reopen({ ${f.name}Binding: '$path' });");
-					newline();
+					fprint("${f.name}Binding: '$path',");
+					newlineNoSemicolon();
 				}
 				if (r == AccResolve) continue;
 			// Don't generate Javascript for inlined methods as there is no point
 			case FMethod(f):
 				if (f == MethInline) continue;
 			}
-			genClassField(c, p, f);
+			genEmberClassField(c, p, f);
 		}
+		
+		if (!hasSuperClass(c, [ "Ember.Application" ])) print("})");
+		
+		newline();
+		
+		for(f in c.statics.get())
+			genStaticField(c, p, f);
+			
+		newline();
+		
 		print("/**********************************************************/");
 		newline();
+	}
+	
+	function genEmberClassField(c:ClassType, p:String, f:ClassField ) {
+		checkFieldName(c, f);
+		fprint("${f.name}: ");
+		var e = f.expr();
+		if(e == null)
+			print("null");
+		else {
+			genExpr(e);
+			
+			// If this is a computed property then add .property to the expression
+			if (f.meta.has(":property")) {
+				var property = getStringFromExpr(f.meta.get().getValues(":property")[0][0]);
+				fprint(".property('$property')");
+			}
+		}
+		print(",");
+		newlineNoSemicolon();
 	}
 	
 	/**
@@ -175,6 +200,10 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		} while (currentClassType.superClass != null);
 		
 		return false;
+	}
+	
+	inline function newlineNoSemicolon() {
+		buf.add("\n");
 	}
 	
 	/**
