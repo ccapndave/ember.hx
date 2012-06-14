@@ -9,5 +9,11 @@ extern class ArrayProxy<T> extends Object {
 	public function new():Void;
 	
 	public var content:Array<T>;
+
+	public function pushObject(obj:T):Void;
+
+	public function removeObject(obj:T):Void;
+
+	public function contentDidChange():Void;
 	
 }

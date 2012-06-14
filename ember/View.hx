@@ -14,7 +14,7 @@ extern class View extends Object {
 	public var templateName:String;
 	
 	/**
-	 * The string to render as a template.  This can be handcoded, or can be a handlebars template from a Haxe resource using:
+	 * The string to render as a template.  This can be handcoded, or it can be a handlebars template from a Haxe resource using:
 	 * 
 	 * template = ember.Handlebars.compile(haxe.Resource.getString('resource-name'));
 	 * 
@@ -31,5 +31,17 @@ extern class View extends Object {
 	 * The controller managing this view. If this property is set, it will be made available for use by the template.
 	 */
 	public var controller:Object;
-	
+
+	/**
+	 * If the view is currently inserted into the DOM of a parent view, this property will point to the parent of the view.
+	 */
+	public var parentView:View;
+
+	/**
+	 * jQuery events
+	 */
+	public function doubleClick(event:Dynamic):Void;
+	public function focusOut(event:Dynamic):Void;
+	public function keyUp(event:Dynamic):Void;
+
 }

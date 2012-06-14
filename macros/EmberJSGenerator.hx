@@ -116,9 +116,6 @@ class EmberJSGenerator extends ExampleJSGenerator {
 				// Generate Ember binding code for a @:binding
 				if (f.meta.has(":binding")) {
 					var path = getStringFromExpr(f.meta.get().getValues(":binding")[0][0]);
-					
-					// TODO: check that the target of the binding exists, and throw a compilation error if not
-					
 					fprint("${f.name}Binding: '$path',");
 					newlineNoSemicolon();
 				}
@@ -160,6 +157,16 @@ class EmberJSGenerator extends ExampleJSGenerator {
 					fprint(".property('$property')");
 				} else {
 					fprint(".property()");
+				}
+			}
+
+			// If this is an observed function then add .observers to the expression
+			if (f.meta.has(":observes")) {
+				if (f.meta.get().getValues(":observes")[0].length > 0) {
+					var property = getStringFromExpr(f.meta.get().getValues(":observes")[0][0]);
+					fprint(".observes('$property')");
+				} else {
+					fprint(".observes()");
 				}
 			}
 		}
