@@ -12,7 +12,7 @@ extern class ArrayProxy<T> extends Object {
 
 	public function pushObject(obj:T):Void;
 
-	public function removeObject(obj:T):Void;
+	public function removeObject(obj:T):Bool;
 
 	public function contentDidChange():Void;
 	
