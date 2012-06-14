@@ -155,8 +155,12 @@ class EmberJSGenerator extends ExampleJSGenerator {
 			
 			// If this is a computed property then add .property to the expression
 			if (f.meta.has(":property")) {
-				var property = getStringFromExpr(f.meta.get().getValues(":property")[0][0]);
-				fprint(".property('$property')");
+				if (f.meta.get().getValues(":property")[0].length > 0) {
+					var property = getStringFromExpr(f.meta.get().getValues(":property")[0][0]);
+					fprint(".property('$property')");
+				} else {
+					fprint(".property()");
+				}
 			}
 		}
 		print(",");
