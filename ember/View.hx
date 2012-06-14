@@ -2,7 +2,10 @@ package ember;
 
 @:native("Ember.View")
 extern class View extends Object {
-	
+
+	public static function create(?opts:Dynamic):View;
+	public static function extend(?opts:Dynamic):Class<View>;
+
 	public function new():Void;
 	
 	/**

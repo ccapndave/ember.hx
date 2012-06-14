@@ -3,6 +3,9 @@ package ember;
 @:native("Ember.StateManager")
 extern class StateManager extends State {
 
+	public static function create(?opts:Dynamic):StateManager;
+	public static function extend(?opts:Dynamic):Class<StateManager>;
+
 	public function new():Void;
 	
 	public var enableLogging:Bool;

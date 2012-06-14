@@ -110,8 +110,8 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		
 		newlineNoSemicolon();
 		
-		for ( f in c.fields.get() ) {
-			switch( f.kind ) {
+		for (f in c.fields.get()) {
+			switch(f.kind) {
 			case FVar(r, _):
 				// Generate Ember binding code for a @:binding
 				if (f.meta.has(":binding")) {
@@ -133,7 +133,8 @@ class EmberJSGenerator extends ExampleJSGenerator {
 		if (!hasSuperClass(c, [ "Ember.Application" ])) print("})");
 		
 		newline();
-		
+
+		// Generate statics after the Ember block
 		for(f in c.statics.get())
 			genStaticField(c, p, f);
 			
