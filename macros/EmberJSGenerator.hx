@@ -1,4 +1,7 @@
 package macros;
+
+#if neko
+
 import haxe.macro.Compiler;
 import haxe.macro.Context;
 import haxe.macro.ExampleJSGenerator;
@@ -230,3 +233,5 @@ class EmberJSGenerator extends ExampleJSGenerator {
 	}
 	
 }
+
+#end

@@ -1,5 +1,4 @@
 package ember;
-import macros.EmberObjectBuilder;
 
 @:autoBuild(macros.EmberObjectBuilder.build())
 @:native("Ember.Object")
