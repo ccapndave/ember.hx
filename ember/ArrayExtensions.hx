@@ -6,4 +6,8 @@ class ArrayExtensions {
 		untyped array.pushObject(obj);
 	}
 	
+	public inline static function removeObject(array:Array<Dynamic>, obj:Dynamic):Bool {
+		untyped return array.removeObject(obj);
+	}
+	
 }
