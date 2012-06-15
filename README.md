@@ -77,15 +77,14 @@ Computed properties allow you to treat a function like a property:
 class Person extends Ember.Object {
   public var firstName:String;
   public var lastName:String;
-  public var fullName(getFullName, null):String;
-  
+
   @:property
-  private function getFullName() {
+  private function fullName() {
     return firstName + ' ' + lastName;
   }
 }
 
-MyApp.president.fullName;
+MyApp.president.get("fullName"); // See caveats section; when getting methods that have @:property outside of a template you need to use get()
 // "Barack Obama"
 ```
 
@@ -105,7 +104,7 @@ class Person extends Ember.Object {
   }
 }
 
-MyApp.president.fullName;
+MyApp.president.get("fullName"); // See caveats section; when getting methods that have @:property outside of a template you need to use get()
 // "Barack Obama"
 ```
 
@@ -131,7 +130,7 @@ Unlike JavaScript which can take hours to debug, Haxe has a very strict compile-
 
 Haxe also supports packages, modules, enums, getters and setters, anonymous functions, closures, dynamic types and many other modern language features.  It also has a sophisticated type inference system which means that it is often possible to leave types out altogether, and still get the benefits of code completion and type checking.
 
-Finally Haxe allows the type system to be completely disabled for blocks of code using `untyped { }`.
+Finally Haxe allows the type system to be completely disabled for blocks of code using `untyped { }`, and hand-coded Javascript to be output using `__js__`.
 
 These features make Haxe ideal as an alternative to Javascript.
 
