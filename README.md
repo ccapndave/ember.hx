@@ -2,7 +2,7 @@
 
 Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming language that allows you to write HTML5 web applications using a modern, statically typed language with full code completion and compile time error checking.  It does this by integrating the fantastic [ember.js](http://emberjs.com/) framework with Haxe.
 
-If you want to dive straight into some code the code for the obligatory Todo example is at https://github.com/ccapndave/ember.hx-todos with a [live demo](http://ccapndave.github.com/ember.hx-todos/bin/) here.
+If you want to dive straight into you can find the code for the obligatory Todo example at https://github.com/ccapndave/ember.hx-todos with a [live demo](http://ccapndave.github.com/ember.hx-todos/bin/) here.
 
 #### Quick links
  - [What does Ember.hx do anyway](#what-does-emberhx-do-anyway)
