@@ -175,6 +175,8 @@ Then add the following to compile.hxml:
 --macro macros.EmberJSGenerator.use()
 ```
 
+> Since Ember is under active development it is recommended to install via the cloned repository in order to get easy access to the latest bug fixes and features.
+
 ## Getting started
 
 Ember.hx applications start with a [Namespace](http://emberjs.com/documentation/#toc_creating-a-namespace).  This is done on your entry class with controllers declared as static properties on the namespace.  This class should be at the top level, and not within a package.
