@@ -105,10 +105,9 @@ Many computed properties have dependencies on other properties. For example, in 
 class Person extends Ember.Object {
   public var firstName:String;
   public var lastName:String;
-  public var fullName(getFullName, null):String;
   
   @:property('firstName', 'lastName')
-  private function getFullName() {
+  private function fullName() {
     return firstName + ' ' + lastName;
   }
 }
@@ -149,7 +148,31 @@ Since Haxe is strictly typed it means that IDEs can offer complete and accurate 
 
 ## Installation
 
+Ember.hx can be installed via Haxe's package manager: `haxelib install ember.hx`
 
+To enable Ember.hx in a project you need to tell the Haxe compiler to use the Ember.hx classes and Javascript generator.  Do this by adding the following two lines to your project's compile.hxml file:
+
+```
+-lib ember.hx
+--macro macros.EmberJSGenerator.use()
+```
+
+If you want to clone the Ember.hx repository directly you need to manually include its dependencies in compile.hxml:
+
+```
+haxelib install tink_core
+haxelib install tink_macros
+```
+
+```
+-lib tink_core
+-lib tink_macros
+-cp <path_to_cloned_ember.hx_repository>
+--macro macros.EmberJSGenerator.use()
+```
 
 ## Getting started
 
+## Caveats
+
+## Contributing
