@@ -157,12 +157,16 @@ To enable Ember.hx in a project you need to tell the Haxe compiler to use the Em
 --macro macros.EmberJSGenerator.use()
 ```
 
-If you want to clone the Ember.hx repository directly you need to manually include its dependencies in compile.hxml:
+If you want to clone the Ember.hx repository directly you need to manually include its dependencies in compile.hxml.
+
+First ensure the dependencies are installed by running:
 
 ```
 haxelib install tink_core
 haxelib install tink_macros
 ```
+
+Then add the following to compile.hxml:
 
 ```
 -lib tink_core
@@ -173,6 +177,29 @@ haxelib install tink_macros
 
 ## Getting started
 
+Ember.hx applications start with a [Namespace](http://emberjs.com/documentation/#toc_creating-a-namespace).  This is done on your entry class with controllers declared as static properties on the namespace.  This class should be at the top level, and not within a package.
+
+```haxe
+package ;
+import ember.Application;
+import todos.controller.TodosController;
+
+class Todos extends Application {
+ 
+	public static var todosController:TodosController;
+	
+	public static function main() {
+		todosController = new TodosController();
+	}
+	
+}
+```
+
+See https://github.com/ccapndave/ember.hx-todos for a working example.
+
 ## Caveats
+
+1. All Ember classes you create must be in a package named with the lowercase version of the application namespace.  So in the example above the namespace is `Todos`, so all controllers, views, etc must be in a package named `todos`.  It is ok to nest these deeper in arbitrary sub-packages as long as the top level package is `todos`.
+2. Views in Ember are often created by the template: `{{view Todos.views.MainView}}`.  In order to make sure that Haxe knows to compile this class into the Javascript you need to have an `import Todos.views.MainView` statement in your application namespace class, otherwise you will get a `Unable to find view at path 'Todos.view.MainView'` error at runtime.
 
 ## Contributing
