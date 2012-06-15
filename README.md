@@ -49,7 +49,7 @@ These are the features that Ember.hx adds to Ember.js, making it even more of a 
 Use bindings to keep properties between two different objects in sync. You just declare a binding once, and Ember.hx will make sure changes get propagated in either direction.
 
 Here's how you create a binding between two objects:
-```haxe
+```as3
 class MyApp extends Ember.Application {
   public static var president:Person;
   public static var country:Country;
@@ -82,7 +82,7 @@ Bindings allow you to architect your application using the MVC (Model-View-Contr
 
 Computed properties allow you to treat a function like a property:
 
-```haxe
+```as3
 class Person extends Ember.Object {
   public var firstName:String;
   public var lastName:String;
@@ -101,7 +101,7 @@ Treating a function like a property is useful because they can work with binding
 
 Many computed properties have dependencies on other properties. For example, in the above example, the `fullName` property depends on `firstName` and `lastName` to determine its value. You can tell Ember.hx about these dependencies like this:
 
-```haxe
+```as3
 class Person extends Ember.Object {
   public var firstName:String;
   public var lastName:String;
@@ -122,7 +122,7 @@ Make sure you list these dependencies so Ember.hx knows when to update bindings 
 
 Ember.hx uses Handlebars, a semantic templating library. To take data from your Haxe application and put it into the DOM, create a `<script>` tag and put it into your HTML, wherever you'd like the value to appear:
 
-``` html
+```html
 <script type="text/x-handlebars">
   The President of the United States is {{MyApp.president.fullName}}.
 </script>
@@ -207,7 +207,7 @@ Ember.hx implements some special metadata tags for working with bindings, proper
 
 The @:binding tag is applied to an instance variable, and creates a two-way binding between the variable and the target.  For example, to make sure that a `user` variable always remains in sync with a `loggedInUser` variable in a controller you might use:
 
-```haxe
+```as3
 @:binding("MyApp.userController.loggedInUser")
 public var user:User;
 ```
@@ -224,7 +224,7 @@ See http://emberjs.com/documentation/#toc_bindings for more details.
 
 The @:property tag is applied to a function, and converts it into a computed property so that it can be used as a source for binding in templates or code via the @:binding tag.  A list of dependant properties can be specified to tell Ember that if they change then any bindings linked to this computed property need to update.
 
-```haxe
+```as3
 @:property("speakers", "staff", "visitors")
 public function totalAttendees() {
   return speakers + staff + visitors;
@@ -245,7 +245,7 @@ See http://emberjs.com/documentation/#toc_computed-properties-getters for more d
 
 The @:observes tag is applied to a function, and causes the function to be rerun if any of the listed properties changes.
 
-```haxe
+```as3
 @:observes("totalAttendees")
 public function runWhenTotalAttendeesChanges() {
 	// do something
@@ -271,3 +271,7 @@ See http://emberjs.com/documentation/#toc_observers for more details.
 3. When you make a function into a computed property using @:property, you are actually changing the function into a property within the generated Javascript.  Therefore you cannot access it from another class using, for example, `Todos.todoController.remaining()` as this will generate a `Property 'remaining' of object is not a function`.  As a workaround for this access the property using `Todos.todoController.get("remaining")`.  It is not necessary to use Ember's `get` and `set` methods for normal properties, and you can use computed properties normally in template bindings: `Items remaining: {{Todos.todoController.remaining}}`.
 
 ## Contributing
+
+Ember.hx currently includes only a small subset of available Ember classes, functions and properties (basically enough to make a working Todo example, plus the StateMachine).  However, if you look at the code in the `ember` package you will see that it is extremely easy to include new features so as you use Ember.hx please add what you need and make pull requests back to the main repository.
+
+When adding a new property or method please copy and paste the documentation from the matching Ember.js source code so that it gets shown in code completion.
