@@ -4,6 +4,10 @@ Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming languag
 
 If you want to dive straight into some code the code for the obligatory Todo example is at https://github.com/ccapndave/ember.hx-todos with a [live demo](http://ccapndave.github.com/ember.hx-todos/bin/) here.
 
+ - [What does Ember.hx do anyway](#what-does-emberhx-do-anyway)
+ - [Installation](#installation)
+ - [Getting started](#getting-started)
+
 ## Why not just write Javascript like everyone else?
 
 ##### Some people don't like Javascript
