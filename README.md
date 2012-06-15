@@ -25,7 +25,7 @@ Personally I find Coffeescript to be a vast improvement on Javascript, but it su
 
 Haxe is a very powerful statically typed language which is syntactically similar to Javascript and AS3.  It has been around since 2005 and has strong community and tooling support, and like Coffeescript it compiles down to Javascript that runs in a browser or in node.js.  Because Haxe has strong typing it means that the compiler can inform you about certain classes or errors before you run a line of code, and furthermore it means that an IDE can give you accurate code completion.  It also means that its much easier to refactor your codebase.  Haxe even supports source mapping (before Coffeescript!) so that you can debug Haxe code directly in Chrome rather than the underlying Javascript.
 
-> Note that although source mapping work for normal Javascript written in Haxe, it doesn't yet work with Ember.hx
+> Note that although source mapping works for normal Javascript written in Haxe, it doesn't yet work with Ember.hx.  Follow the issue at http://code.google.com/p/haxe/issues/detail?id=930
 
 One other feature that makes Haxe an excellent choice as an alternative to Javascript development is the fact that if you choose you can turn type checking off for arbitrary sections of code using the `untyped` command, and even drop down to hand-coding Javascript directly from within a Haxe application with the `__js__` command.  This gives the developer the best of every world.
 
@@ -201,12 +201,73 @@ See https://github.com/ccapndave/ember.hx-todos for a working example.
 
 ## Metadata
 
+Ember.hx implements some special metadata tags for working with bindings, properties and observers:
 
+##### @:binding
+
+The @:binding tag is applied to an instance variable, and creates a two-way binding between the variable and the target.  For example, to make sure that a `user` variable always remains in sync with a `loggedInUser` variable in a controller you might use:
+
+```haxe
+@:binding("MyApp.userController.loggedInUser")
+public var user:User;
+```
+
+In the generated Javascript this would be translated to:
+
+```js
+userBinding: "MyApp.userController.loggedInUser"
+```
+
+See http://emberjs.com/documentation/#toc_bindings for more details.
+
+##### @:property
+
+The @:property tag is applied to a function, and converts it into a computed property so that it can be used as a source for binding in templates or code via the @:binding tag.  A list of dependant properties can be specified to tell Ember that if they change then any bindings linked to this computed property need to update.
+
+```haxe
+@:property("speakers", "staff", "visitors")
+public function totalAttendees() {
+  return speakers + staff + visitors;
+}
+```
+
+In the generated Javascript this would be translated to:
+
+```js
+totalAttendees: function() {
+	return this.get("speakers") + this.get("staff") + this.get("visitors");
+}.property("speakers", "staff", "visitors")
+```
+
+See http://emberjs.com/documentation/#toc_computed-properties-getters for more details.
+
+##### @:observes
+
+The @:observes tag is applied to a function, and causes the function to be rerun if any of the listed properties changes.
+
+```haxe
+@:observes("totalAttendees")
+public function runWhenTotalAttendeesChanges() {
+	// do something
+}
+```
+
+Since totalAttendees updates when speaker, staff or visitors changes, this means that the `runWhenTotalAttendeesChanges` function will execute when any of these change too!
+
+In the generated Javascript this would be translated to:
+
+```js
+runWhenTotalAttendeesChanges: function() {
+	// do something
+}.observes("totalAttendees")
+```
+
+See http://emberjs.com/documentation/#toc_observers for more details.
 
 ## Caveats
 
 1. All Ember classes you create must be in a package named with the lowercase version of the application namespace.  So in the example above the namespace is `Todos`, so all controllers, views, etc must be in a package named `todos`.  It is ok to nest these deeper in arbitrary sub-packages as long as the top level package is `todos`.
 2. Views in Ember are often created by the template: `{{view Todos.views.MainView}}`.  In order to make sure that Haxe knows to compile this class into the Javascript you need to have an `import Todos.views.MainView` statement in your application namespace class, otherwise you will get a `Unable to find view at path 'Todos.view.MainView'` error at runtime.
-3. When you make a function into a computed property using @:property, you are actually changing the function into a property within the generated Javascript.  Therefore you cannot access it from another class using, for example, `Todos.todoController.remaining()` as this will generate a `Property 'remaining' of object is not a function`.  As a workaround for this access the property using `Todos.todoController.get("remaining")`.  It is not necessary to use Ember's `get` and `set` methods for normal properties, and you can use computed properties normally in template bindings: `{{Todos.todoController.remaining}} items remaining`.
+3. When you make a function into a computed property using @:property, you are actually changing the function into a property within the generated Javascript.  Therefore you cannot access it from another class using, for example, `Todos.todoController.remaining()` as this will generate a `Property 'remaining' of object is not a function`.  As a workaround for this access the property using `Todos.todoController.get("remaining")`.  It is not necessary to use Ember's `get` and `set` methods for normal properties, and you can use computed properties normally in template bindings: `Items remaining: {{Todos.todoController.remaining}}`.
 
 ## Contributing
