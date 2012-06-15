@@ -106,7 +106,6 @@ class EmberJSGenerator extends ExampleJSGenerator {
 	#end
 	
 	private function genEmberClass(c:ClassType) {
-		print("/**********************************************************/");
 		newline();
 		
 		genPackage(c.pack);
@@ -154,9 +153,6 @@ class EmberJSGenerator extends ExampleJSGenerator {
 			genStaticField(c, p, f);
 			
 		newline();
-		
-		print("/**********************************************************/");
-		newline();
 	}
 	
 	function genEmberClassField(c:ClassType, p:String, f:ClassField ) {
@@ -171,8 +167,11 @@ class EmberJSGenerator extends ExampleJSGenerator {
 			// If this is a computed property then add .property to the expression
 			if (f.meta.has(":property")) {
 				if (f.meta.get().getValues(":property")[0].length > 0) {
-					var property = getStringFromExpr(f.meta.get().getValues(":property")[0][0]);
-					fprint(".property('$property')");
+					var properties = [];
+					for (property in f.meta.get().getValues(":property")[0])
+						properties.push("'" + getStringFromExpr(property) + "'");
+
+					fprint(".property(${properties.join(',')})");
 				} else {
 					fprint(".property()");
 				}
@@ -181,8 +180,11 @@ class EmberJSGenerator extends ExampleJSGenerator {
 			// If this is an observed function then add .observers to the expression
 			if (f.meta.has(":observes")) {
 				if (f.meta.get().getValues(":observes")[0].length > 0) {
-					var property = getStringFromExpr(f.meta.get().getValues(":observes")[0][0]);
-					fprint(".observes('$property')");
+					var properties = [];
+					for (property in f.meta.get().getValues(":observes")[0])
+						properties.push("'" + getStringFromExpr(property) + "'");
+
+					fprint(".observes(${properties.join(',')})");
 				} else {
 					fprint(".observes()");
 				}
