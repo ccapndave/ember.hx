@@ -1,0 +1,10 @@
+<project name="ember.hx" url="https://github.com/ccapndave/ember.hx" license="MIT">
+    <user name="ccapndave"/>
+    <tag v="js" />
+    <tag v="javascript" />
+    <description>Use ember.js, a powerful Javascript application framework, with Haxe</description>
+    <version name="0.6">Initial release</version>
+
+    <depends name="tink_core" />
+    <depends name="tink_macros" />
+</project>
