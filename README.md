@@ -25,6 +25,8 @@ Personally I find Coffeescript to be a vast improvement on Javascript, but it su
 
 Haxe is a very powerful statically typed language which is syntactically similar to Javascript and AS3.  It has been around since 2005 and has strong community and tooling support, and like Coffeescript it compiles down to Javascript that runs in a browser or in node.js.  Because Haxe has strong typing it means that the compiler can inform you about certain classes or errors before you run a line of code, and furthermore it means that an IDE can give you accurate code completion.  It also means that its much easier to refactor your codebase.  Haxe even supports source mapping (before Coffeescript!) so that you can debug Haxe code directly in Chrome rather than the underlying Javascript.
 
+> Note that although source mapping work for normal Javascript written in Haxe, it doesn't yet work with Ember.hx
+
 One other feature that makes Haxe an excellent choice as an alternative to Javascript development is the fact that if you choose you can turn type checking off for arbitrary sections of code using the `untyped` command, and even drop down to hand-coding Javascript directly from within a Haxe application with the `__js__` command.  This gives the developer the best of every world.
 
 ## What does Ember.hx do anyway?
