@@ -8,7 +8,7 @@ Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming languag
 
 Its true!  Its a fact that a lot of people actively dislike or merely tolerate Javascript because its the only option for web development.  Javascript's object model and dynamic scoping can be particularly confusing for developers coming from classical languages like Java, C# and AS3.  Full compile-time error checking is (probably) impossible due to Javascript's dynamic nature which means that a whole class of errors that a statically typed language can find in advance won't be found until the code actually executes.  This also makes it harder to work on a single code base with larger teams.  
 
-A full unit testing suite mitigates some of these problems, but in the real world there isn't always time for this.
+A full unit testing suite mitigates some of these problems, but in real-life programming project with deadlines there isn't always time to write and maintain these.
 
 ##### How about Coffeescript then?
 
