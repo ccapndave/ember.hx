@@ -2,6 +2,8 @@
 
 Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming language that allows you to write HTML5 web applications using a modern, statically typed language with full code completion and compile time error checking.  It does this by integrating the fantastic [ember.js](http://emberjs.com/) framework with Haxe.
 
+If you want to dive straight into some code the code for the obligatory Todo example is at https://github.com/ccapndave/ember.hx-todos with a [live demo](http://ccapndave.github.com/ember.hx-todos/bin/) here.
+
 ## Why not just write Javascript like everyone else?
 
 ##### Some people don't like Javascript
@@ -136,10 +138,7 @@ These features make Haxe ideal as an alternative to Javascript.
 
 ## Code completion
 
-Since Haxe is strictly typed it means that IDEs can offer complete and accurate code completion.  Most popular IDEs support Haxe, including Textmate, Sublime Text 2 and IntelliJ.  For a list of IDEs with Haxe support, or plugins see [http://haxe.org/com/ide].
+Since Haxe is strictly typed it means that IDEs can offer complete and accurate code completion.  Most popular IDEs support Haxe, including Textmate, Sublime Text 2, IntelliJ IDEA, FlashDevelop and MonoDevelop.  For a list of IDEs with Haxe support see [http://haxe.org/com/ide].
 
-## Differences between Ember.hx and Ember.js
+# Getting started
 
-## How does it work?
-
-## Getting Started
