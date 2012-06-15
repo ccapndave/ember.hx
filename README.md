@@ -1,6 +1,6 @@
 # Ember.hx
 
-Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming language that, for the first time, allows you to write Ember.js code using a modern statically typed language.
+Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming language that allows you to write HTML5 web applications using a modern, statically typed language with full code completion and compile time error checking.  It does this by integrating the fantastic [ember.js](http://emberjs.com/) framework with Haxe.
 
 ## Why not just write Javascript like everyone else?
 
@@ -8,7 +8,7 @@ Ember.hx is a library for the [Haxe](http://www.haxejs.org/) programming languag
 
 Its true!  Its a fact that a lot of people actively dislike or merely tolerate Javascript because its the only option for web development.  Javascript's object model and dynamic scoping can be particularly confusing for developers coming from classical languages like Java, C# and AS3.  Full compile-time error checking is (probably) impossible due to Javascript's dynamic nature which means that a whole class of errors that a statically typed language can find in advance won't be found until the code actually executes.  This also makes it harder to work on a single code base with larger teams.  
 
-A full unit testing suite mitigates some of these problems, but in real-life programming project with deadlines there isn't always time to write and maintain these.
+A full unit testing suite mitigates some of these problems, but in real-life programming projects with deadlines there isn't always time to write and maintain them.
 
 ##### How about Coffeescript then?
 
@@ -18,7 +18,7 @@ Personally I find Coffeescript to be a vast improvement on Javascript, but it su
 
 Haxe is a very powerful statically typed language which is syntactically similar to Javascript and AS3.  It has been around since 2005 and has strong community and tooling support, and like Coffeescript it compiles down to Javascript that can run in a browser or in node.js.  Because Haxe has strong typing it means that the compiler can inform you about certain classes or errors before you run a line of code, and furthermore it means that an IDE can give you accurate code completion.  It also means that its much easier to refactor your codebase.  Haxe even supports source mapping (before Coffeescript!) so that you can debug Haxe code directly in Chrome rather than the underlying Javascript.
 
-One other feature that makes Haxe an excellent choice as an alternative to Javascript development is the fact that if you choose you can turn type checking off for arbitrary sections of code using the `untyped` command, and even drop down to hand-coding Javascript directly from within a Haxe application.  This gives the developer the best of every world.
+One other feature that makes Haxe an excellent choice as an alternative to Javascript development is the fact that if you choose you can turn type checking off for arbitrary sections of code using the `untyped` command, and even drop down to hand-coding Javascript directly from within a Haxe application with the `__js__` command.  This gives the developer the best of every world.
 
 ## What does Ember.hx do anyway?
 
