@@ -268,9 +268,13 @@ See http://emberjs.com/documentation/#toc_observers for more details.
 
 ## Caveats
 
-1. All Ember classes you create must be in a package named with the lowercase version of the application namespace.  So in the example above the namespace is `Todos`, so all controllers, views, etc must be in a package named `todos`.  It is ok to nest these deeper in arbitrary sub-packages as long as the top level package is `todos`.
-2. Views in Ember are often created by the template: `{{view Todos.views.MainView}}`.  In order to make sure that Haxe knows to compile this class into the Javascript you need to have an `import Todos.views.MainView` statement in your application namespace class, otherwise you will get a `Unable to find view at path 'Todos.view.MainView'` error at runtime.
-3. When you make a function into a computed property using @:property, you are actually changing the function into a property within the generated Javascript.  Therefore you cannot access it from another class using, for example, `Todos.todoController.remaining()` as this will generate a `Property 'remaining' of object is not a function`.  As a workaround for this access the property using `Todos.todoController.get("remaining")`.  It is not necessary to use Ember's `get` and `set` methods for normal properties, and you can use computed properties normally in template bindings: `Items remaining: {{Todos.todoController.remaining}}`.
+1. Object-oriented constructors don't really translate over to Ember.  Therefore **never** use the _new_ constructor in an Ember app.  Instead override the _init_ function, which performs the same job in Ember.
+
+2. All Ember classes you create must be in a package named with the lowercase version of the application namespace.  So in the example above the namespace is `Todos`, so all controllers, views, etc must be in a package named `todos`.  It is ok to nest these deeper in arbitrary sub-packages as long as the top level package is `todos`.
+
+3. Views in Ember are often created by the template: `{{view Todos.views.MainView}}`.  In order to make sure that Haxe knows to compile this class into the Javascript you need to have an `import Todos.views.MainView` statement in your application namespace class, otherwise you will get a `Unable to find view at path 'Todos.view.MainView'` error at runtime.
+
+4. When you make a function into a computed property using @:property, you are actually changing the function into a property within the generated Javascript.  Therefore you cannot access it from another class using, for example, `Todos.todoController.remaining()` as this will generate a `Property 'remaining' of object is not a function`.  As a workaround for this access the property using `Todos.todoController.get("remaining")`.  It is not necessary to use Ember's `get` and `set` methods for normal properties, and you can use computed properties normally in template bindings: `Items remaining: {{Todos.todoController.remaining}}`.
 
 ## Contributing
 
