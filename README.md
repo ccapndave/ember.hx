@@ -268,7 +268,18 @@ See http://emberjs.com/documentation/#toc_observers for more details.
 
 ## Caveats
 
-1. Object-oriented constructors don't really translate over to Ember.  Therefore **never** use the _new_ constructor in an Ember app.  Instead override the _init_ function, which performs the same job in Ember.
+1. Object-oriented constructors don't really translate over to Ember.  Therefore **never** use the `new` constructor in an Ember app.  Instead override the `init` function, which performs the same job in Ember.  Always be sure to call `super.init()` at the end of the function otherwise your app will not function correctly.
+
+```as3
+class MyView extends View {
+
+	override public function init() {
+		// My initialisation code goes here
+		super.init();
+	}
+
+}
+```
 
 2. All Ember classes you create must be in a package named with the lowercase version of the application namespace.  So in the example above the namespace is `Todos`, so all controllers, views, etc must be in a package named `todos`.  It is ok to nest these deeper in arbitrary sub-packages as long as the top level package is `todos`.
 
