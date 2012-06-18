@@ -268,7 +268,7 @@ See http://emberjs.com/documentation/#toc_observers for more details.
 
 ## Caveats
 
-- Object-oriented constructors don't really translate over to Ember.  Therefore **never** use the `new` constructor in an Ember app.  Instead override the `init` function, which performs the same job in Ember.  Always be sure to call `super.init()` at the end of the function otherwise your app will not function correctly.                                                                                      
+- Object-oriented constructors don't really translate over to Ember.  Therefore **never** use the `new` constructor in Ember classes.  Instead override the `init` function, which performs the same job in Ember.  Always be sure to call `super.init()` at the end of the function otherwise your app will not function correctly.                                                                                      
 
 ```as3
 class MyView extends View {
